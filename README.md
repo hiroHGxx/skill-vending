@@ -66,6 +66,8 @@ claude mcp add skill-vending -- npx -y github:hiroHGxx/skill-vending
 
 `get_skill` はファイル内容を**返すだけ**です。`~/.claude/skills/<name>/` への保存は、クライアント側の Claude がユーザーの承認フローのもとで行います。
 
+> 💡 インストール時に Claude が「ファイルを作成」する操作が見えますが、これはスキルを新規に作っているのではなく、`get_skill` が返した配布物の内容をそのまま書き写しています（サーバーに書き込み権限を持たせない代わりに、保存をユーザーが承認できる操作にするための設計です）。配布元と同一かどうかは `diff -r` でリポジトリの `skills/<name>/` と比較すれば確認できます。
+
 ## デモシナリオ
 
 Claude Code 上で以下のように話しかけます：
