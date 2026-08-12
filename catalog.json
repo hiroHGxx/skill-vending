@@ -11,6 +11,24 @@
         "references/weekly-report-template.md"
       ],
       "tags": ["議事録", "週報", "アクションアイテム", "業務効率化"]
+    },
+    {
+      "name": "japanese-business-email",
+      "description": "日本のビジネス慣行に沿った敬語・構成ルールでメールを作成するスキル。依頼・お詫び・催促・お礼・報告・お断りの類型別テンプレートに対応。",
+      "version": "0.1.0",
+      "files": [
+        "SKILL.md",
+        "references/keigo-rules.md",
+        "references/email-patterns.md"
+      ],
+      "tags": ["メール", "ビジネスメール", "敬語", "文書作成"]
+    },
+    {
+      "name": "natural-japanese-polish",
+      "description": "AI生成文特有の言い回し・構成の癖を除去し、自然で人間らしい日本語に推敲するスキル。意味と事実は変えずに文体だけを直す。",
+      "version": "0.1.0",
+      "files": ["SKILL.md", "references/ai-patterns.md"],
+      "tags": ["推敲", "文章校正", "リライト", "AIっぽさ"]
     }
   ]
 }
