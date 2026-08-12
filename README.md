@@ -122,13 +122,17 @@ catalog 取得・スキル取得のロジック（`catalog.ts` / `search.ts` / `
 3. `CHANGELOG.md` に1行追記
 4. main に push（MCP サーバーは常に main を参照するため、これだけで配信されます）
 
-## GitHub Pages・独自ドメイン設定手順
+## 紹介ページ
+
+https://skills.monolb.com/ （GitHub Pages / `docs/` 配下）
+
+設定内容（他プロジェクトで再現する場合の手順）：
 
 1. GitHub リポジトリの Settings → Pages → Source を「Deploy from a branch」、Branch を `main` / `/docs` に設定
 2. 独自ドメインを使う場合：
-   - `docs/CNAME.example` を `docs/CNAME` にリネームし、中身を割り当てたいサブドメイン（例：`skills.example.com`）1行だけにする
+   - `docs/CNAME` に割り当てたいサブドメイン（例：`skills.example.com`）を1行だけ書く
    - DNS 側で、そのサブドメインの **CNAME レコード**を `<owner>.github.io` に向ける
-   - Settings → Pages → Custom domain に同じサブドメインを入力し、「Enforce HTTPS」を有効化（証明書発行に数分〜数十分かかります）
+   - Settings → Pages の Custom domain が DNS check successful になったら「Enforce HTTPS」を有効化
 
 ## ライセンス
 
