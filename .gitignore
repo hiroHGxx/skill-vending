@@ -7,3 +7,4 @@ debug/
 .env
 .env.*
 !.env.example
+drafts/
