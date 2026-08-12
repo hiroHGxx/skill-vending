@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; }
+  body {
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif;
+    background: #f7f5f0;
+    color: #2b2926;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 84px;
+    position: relative;
+    overflow: hidden;
+  }
+  .accent-bar {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 16px;
+    background: #b5502a;
+  }
+  .badge {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: 24px;
+    letter-spacing: 0.08em;
+    background: #f3e3da;
+    color: #b5502a;
+    border-radius: 999px;
+    padding: 10px 28px;
+    margin-bottom: 32px;
+  }
+  h1 {
+    font-size: 100px;
+    letter-spacing: 0.01em;
+    line-height: 1.05;
+    margin-bottom: 24px;
+  }
+  .tagline {
+    font-size: 37px;
+    line-height: 1.5;
+    color: #4a4640;
+    margin-bottom: 44px;
+  }
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    font-size: 23px;
+  }
+  .chip {
+    background: #ffffff;
+    border: 1px solid #e4dfd5;
+    border-radius: 10px;
+    padding: 12px 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .chip.first { background: #f3e3da; border-color: #f3e3da; }
+  .arrow { color: #b5502a; font-weight: bold; flex-shrink: 0; }
+  .foot {
+    margin-top: 40px;
+    font-size: 27px;
+    color: #8a857c;
+    letter-spacing: 0.03em;
+  }
+</style>
+</head>
+<body>
+  <div class="accent-bar"></div>
+  <span class="badge">個人実験プロジェクト</span>
+  <h1>skill-vending</h1>
+  <p class="tagline">Claude の Agent Skills を、会話の中で探して入れられる<br>読み取り専用 MCP サーバー</p>
+  <div class="flow">
+    <span class="chip first">「議事録系のスキルない？」</span>
+    <span class="arrow">→</span>
+    <span class="chip">検索</span>
+    <span class="arrow">→</span>
+    <span class="chip">中身を確認</span>
+    <span class="arrow">→</span>
+    <span class="chip">インストール</span>
+  </div>
+  <div class="foot">skills.monolb.com</div>
+</body>
+</html>
