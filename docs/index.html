@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>skill-vending — Agent Skills 配布 MCP サーバー（実験）</title>
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --card: #ffffff;
+    --ink: #2b2926;
+    --muted: #6b675f;
+    --accent: #b5502a;
+    --accent-soft: #f3e3da;
+    --border: #e4dfd5;
+    --code-bg: #2b2926;
+    --code-ink: #f3efe7;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.8;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+  header { padding: 72px 0 48px; text-align: center; }
+  .badge {
+    display: inline-block; font-size: 13px; letter-spacing: 0.08em;
+    background: var(--accent-soft); color: var(--accent);
+    border-radius: 999px; padding: 4px 14px; margin-bottom: 20px;
+  }
+  h1 { font-size: 40px; letter-spacing: 0.02em; margin-bottom: 12px; }
+  .tagline { color: var(--muted); font-size: 17px; }
+  section { padding: 36px 0; border-top: 1px solid var(--border); }
+  h2 { font-size: 22px; margin-bottom: 16px; }
+  h2::before { content: "◆ "; color: var(--accent); font-size: 15px; vertical-align: 2px; }
+  p { margin-bottom: 12px; }
+  .flow {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 20px; margin: 16px 0;
+    font-size: 15px;
+  }
+  .flow .step { background: var(--accent-soft); border-radius: 8px; padding: 6px 12px; }
+  .flow .arrow { color: var(--accent); font-weight: bold; }
+  pre {
+    background: var(--code-bg); color: var(--code-ink);
+    border-radius: 12px; padding: 18px 20px; overflow-x: auto;
+    font-size: 13.5px; line-height: 1.7; margin: 16px 0;
+  }
+  code { font-family: "SF Mono", Menlo, Consolas, monospace; }
+  table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 12px; overflow: hidden; margin: 16px 0; font-size: 15px; }
+  th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+  th { background: var(--accent-soft); font-size: 14px; }
+  tr:last-child td { border-bottom: none; }
+  .disclaimer {
+    background: var(--card); border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px; padding: 18px 20px; font-size: 14.5px;
+  }
+  .disclaimer li { margin-left: 1.4em; margin-bottom: 4px; }
+  footer { padding: 40px 0 56px; text-align: center; color: var(--muted); font-size: 13.5px; border-top: 1px solid var(--border); }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="badge">個人実験プロジェクト</div>
+  <h1>skill-vending</h1>
+  <p class="tagline">Claude の Agent Skills を、会話の中で探して入れられる<br>読み取り専用 MCP サーバー</p>
+</header>
+
+<section>
+  <h2>なにができるか</h2>
+  <p>Claude Code にこの MCP サーバーを繋ぐと、スキルの検索からインストールまでが会話だけで完結します。</p>
+  <div class="flow">
+    <span class="step">「議事録系のスキルない？」</span>
+    <span class="arrow">→</span>
+    <span class="step">検索</span>
+    <span class="arrow">→</span>
+    <span class="step">内容を全文確認</span>
+    <span class="arrow">→</span>
+    <span class="step">~/.claude/skills/ へ保存</span>
+  </div>
+  <p>スキルの実体はすべて GitHub リポジトリにあり、サーバーはそれを読むだけ（read-only）です。</p>
+</section>
+
+<section>
+  <h2>導入手順</h2>
+  <p>Node.js 18 以上と Claude Code が必要です。以下を実行するだけです：</p>
+  <pre><code>claude mcp add skill-vending -- npx -y github:hiroHGxx/skill-vending</code></pre>
+  <p>または <code>.mcp.json</code> に追記：</p>
+  <pre><code>{
+  "mcpServers": {
+    "skill-vending": {
+      "command": "npx",
+      "args": ["-y", "github:hiroHGxx/skill-vending"]
+    }
+  }
+}</code></pre>
+</section>
+
+<section>
+  <h2>スキル一覧</h2>
+  <table>
+    <tr><th>スキル名</th><th>説明</th><th>バージョン</th></tr>
+    <tr>
+      <td><code>minutes-to-weekly-report</code></td>
+      <td>議事録からアクションアイテム（担当者・期限・内容）を抽出し、日本のビジネス慣行に沿った週報形式に変換</td>
+      <td>0.1.0</td>
+    </tr>
+  </table>
+  <p>最新の一覧はリポジトリの <code>catalog.json</code> を参照してください。</p>
+</section>
+
+<section>
+  <h2>免責事項</h2>
+  <div class="disclaimer">
+    <ul>
+      <li>本プロジェクトは<strong>個人の実験</strong>であり、動作・安全性の保証はありません。<strong>自己責任</strong>でご利用ください。</li>
+      <li>業務データを扱う環境で使う場合は、<strong>所属組織のポリシーを確認</strong>してください。</li>
+      <li>スキルは指示書（Markdown）のみで構成され、<strong>実行スクリプトは含みません</strong>。</li>
+      <li>スキルの内容は、インストール前に <code>get_skill</code> の返り値で<strong>全文確認できます</strong>。</li>
+      <li>MCP サーバーは読み取り専用で、ファイル書き込み・コマンド実行系のツールを持ちません。</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <p><a href="https://github.com/hiroHGxx/skill-vending">GitHub リポジトリ</a> ｜ MIT License</p>
+</footer>
+
+</div>
+</body>
+</html>

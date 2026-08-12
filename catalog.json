@@ -1,0 +1,16 @@
+{
+  "updated": "2026-08-12",
+  "skills": [
+    {
+      "name": "minutes-to-weekly-report",
+      "description": "議事録からアクションアイテム（担当者・期限・内容）を抽出し、日本のビジネス慣行に沿った週報形式に変換するスキル。",
+      "version": "0.1.0",
+      "files": [
+        "SKILL.md",
+        "references/extraction-rules.md",
+        "references/weekly-report-template.md"
+      ],
+      "tags": ["議事録", "週報", "アクションアイテム", "業務効率化"]
+    }
+  ]
+}
