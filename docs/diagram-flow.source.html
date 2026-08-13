@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>skill-vending のモノの流れ</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1120px; background: #f7f5f0; }
+  body {
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif;
+    color: #2b2926;
+    padding: 28px 32px 16px;
+  }
+  .eyebrow {
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: #b5502a;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    font-size: 16px;
+    color: #4a4640;
+    margin-bottom: 16px;
+  }
+</style>
+</head>
+<body>
+  <p class="eyebrow">SKILL-VENDING</p>
+  <h1>スキル自販機の、モノの流れ</h1>
+  <p class="subtitle">自販機は「読むだけ」。書き込むのは、使う人側の Claude — それも人の承認つきで。</p>
+
+  <svg viewBox="0 0 1056 508" width="1056" role="img" aria-labelledby="svflow-title svflow-desc">
+    <title id="svflow-title">skill-vending のモノの流れ</title>
+    <desc id="svflow-desc">配る人が GitHub の倉庫にスキルを補充し、読み取り専用の MCP サーバー（自販機）が使う人の Claude に中身をテキストで返し、人の承認を経てスキル棚に書き写される流れを示す図。棚と倉庫はあとから diff で照合できる。</desc>
+
+    <defs>
+      <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="#7a746a"/>
+      </marker>
+    </defs>
+
+    <!-- background -->
+    <rect width="100%" height="100%" fill="#f7f5f0"/>
+
+    <!-- trust boundary: 使う人のPC -->
+    <rect x="576" y="32" width="448" height="424" rx="8"
+          fill="rgba(181,80,42,0.04)" stroke="rgba(181,80,42,0.50)" stroke-width="1" stroke-dasharray="4,4"/>
+    <text x="592" y="56" fill="rgba(181,80,42,0.80)" font-size="12" letter-spacing="0.08em">使う人のパソコンの中</text>
+
+    <!-- zone label: 公開側 -->
+    <text x="32" y="52" fill="#8a857c" font-size="12" letter-spacing="0.08em">公開の場所（だれでも見られる）</text>
+
+    <!-- ===== arrows (before boxes) ===== -->
+    <!-- A1 配る人 → 倉庫 -->
+    <line x1="176" y1="124" x2="256" y2="124" stroke="#7a746a" stroke-width="1.2" marker-end="url(#arrow)"/>
+    <!-- A2 倉庫 → 自販機 -->
+    <line x1="352" y1="160" x2="352" y2="256" stroke="#7a746a" stroke-width="1.2" marker-end="url(#arrow)"/>
+    <!-- A3 Claude → 自販機（注文） -->
+    <path d="M640,120 H552 Q544,120 544,128 V280 Q544,288 536,288 H448"
+          fill="none" stroke="#7a746a" stroke-width="1.2" marker-end="url(#arrow)"/>
+    <!-- A4 自販機 → Claude（中身を返す） -->
+    <path d="M448,320 H560 Q568,320 568,312 V160 Q568,152 576,152 H640"
+          fill="none" stroke="#7a746a" stroke-width="1.2" marker-end="url(#arrow)"/>
+    <!-- A5 Claude → 承認 -->
+    <line x1="760" y1="176" x2="760" y2="240" stroke="#7a746a" stroke-width="1.2" marker-end="url(#arrow)"/>
+    <!-- A6 承認 → 棚 -->
+    <line x1="760" y1="304" x2="760" y2="360" stroke="#7a746a" stroke-width="1.2" marker-end="url(#arrow)"/>
+    <!-- A7 棚 〜 倉庫（照合・破線、矢印なし） -->
+    <path d="M880,396 H992 Q1000,396 1000,388 V24 Q1000,16 992,16 H360 Q352,16 352,24 V64"
+          fill="none" stroke="#8a857c" stroke-width="1" stroke-dasharray="4,3"/>
+
+    <!-- ===== arrow labels (masked) ===== -->
+    <rect x="180" y="100" width="72" height="16" rx="2" fill="#f7f5f0"/>
+    <text x="216" y="112" fill="#4a4640" font-size="12" text-anchor="middle">補充する</text>
+
+    <rect x="360" y="200" width="88" height="16" rx="2" fill="#f7f5f0"/>
+    <text x="364" y="212" fill="#4a4640" font-size="12">読み取りのみ</text>
+
+    <rect x="436" y="236" width="96" height="16" rx="2" fill="#f7f5f0"/>
+    <text x="484" y="248" fill="#4a4640" font-size="12" text-anchor="middle">議事録系ない？</text>
+
+    <rect x="464" y="328" width="96" height="16" rx="2" fill="#f7f5f0"/>
+    <text x="512" y="340" fill="#4a4640" font-size="12" text-anchor="middle">中身を返す</text>
+
+    <rect x="768" y="200" width="88" height="16" rx="2" fill="#f4eee8"/>
+    <text x="772" y="212" fill="#4a4640" font-size="12">全文を表示</text>
+
+    <rect x="768" y="324" width="112" height="16" rx="2" fill="#f4eee8"/>
+    <text x="772" y="336" fill="#4a4640" font-size="12">承認後に書き写し</text>
+
+    <rect x="364" y="24" width="192" height="16" rx="2" fill="#f7f5f0"/>
+    <text x="460" y="36" fill="#8a857c" font-size="12" text-anchor="middle">あとから diff で照合できる</text>
+
+    <!-- ===== nodes ===== -->
+    <!-- 配る人 -->
+    <rect x="32" y="88" width="144" height="72" rx="6" fill="#f7f5f0"/>
+    <rect x="32" y="88" width="144" height="72" rx="6" fill="rgba(74,70,64,0.10)" stroke="#8a857c" stroke-width="1"/>
+    <text x="104" y="120" fill="#2b2926" font-size="16" font-weight="600" text-anchor="middle">配る人（私）</text>
+    <text x="104" y="142" fill="#4a4640" font-size="12" text-anchor="middle">スキルを作る</text>
+
+    <!-- 倉庫 -->
+    <rect x="256" y="64" width="192" height="96" rx="6" fill="#f7f5f0"/>
+    <rect x="256" y="64" width="192" height="96" rx="6" fill="rgba(43,41,38,0.05)" stroke="#4a4640" stroke-width="1"/>
+    <text x="352" y="104" fill="#2b2926" font-size="16" font-weight="600" text-anchor="middle">倉庫（GitHub）</text>
+    <text x="352" y="132" fill="#4a4640" font-size="12" font-family="SF Mono, Menlo, monospace" text-anchor="middle">skills/ + catalog.json</text>
+
+    <!-- 自販機（focal） -->
+    <rect x="256" y="256" width="192" height="96" rx="6" fill="#f7f5f0"/>
+    <rect x="256" y="256" width="192" height="96" rx="6" fill="#f3e3da" stroke="#b5502a" stroke-width="1.2"/>
+    <text x="352" y="296" fill="#2b2926" font-size="16" font-weight="600" text-anchor="middle">自販機（サーバー）</text>
+    <text x="352" y="324" fill="#b5502a" font-size="12" font-weight="600" text-anchor="middle">読み取り専用</text>
+
+    <!-- callout -->
+    <text x="352" y="380" fill="#b5502a" font-size="12" text-anchor="middle">相手のPCに書き込む機能を持たない</text>
+
+    <!-- Claude -->
+    <rect x="640" y="96" width="240" height="80" rx="6" fill="#f7f5f0"/>
+    <rect x="640" y="96" width="240" height="80" rx="6" fill="#ffffff" stroke="#2b2926" stroke-width="1"/>
+    <text x="760" y="132" fill="#2b2926" font-size="16" font-weight="600" text-anchor="middle">相手の Claude</text>
+    <text x="760" y="156" fill="#4a4640" font-size="12" text-anchor="middle">会話でスキルを探す</text>
+
+    <!-- 承認 -->
+    <rect x="640" y="240" width="240" height="64" rx="6" fill="#f7f5f0"/>
+    <rect x="640" y="240" width="240" height="64" rx="6" fill="#ffffff" stroke="#2b2926" stroke-width="1"/>
+    <text x="760" y="268" fill="#2b2926" font-size="16" font-weight="600" text-anchor="middle">人の承認</text>
+    <text x="760" y="292" fill="#4a4640" font-size="12" text-anchor="middle">中身を全文みてから OK</text>
+
+    <!-- 棚 -->
+    <rect x="640" y="360" width="240" height="72" rx="6" fill="#f7f5f0"/>
+    <rect x="640" y="360" width="240" height="72" rx="6" fill="rgba(43,41,38,0.05)" stroke="#4a4640" stroke-width="1"/>
+    <text x="760" y="392" fill="#2b2926" font-size="16" font-weight="600" text-anchor="middle">スキル棚</text>
+    <text x="760" y="416" fill="#4a4640" font-size="12" font-family="SF Mono, Menlo, monospace" text-anchor="middle">~/.claude/skills/</text>
+
+    <!-- ===== legend ===== -->
+    <line x1="32" y1="472" x2="1024" y2="472" stroke="rgba(43,41,38,0.10)" stroke-width="0.8"/>
+    <line x1="32" y1="492" x2="72" y2="492" stroke="#7a746a" stroke-width="1.2" marker-end="url(#arrow)"/>
+    <text x="84" y="496" fill="#4a4640" font-size="12">モノ・データの流れ</text>
+    <line x1="248" y1="492" x2="288" y2="492" stroke="#8a857c" stroke-width="1" stroke-dasharray="4,3"/>
+    <text x="300" y="496" fill="#4a4640" font-size="12">あとから照合できる関係</text>
+    <rect x="496" y="484" width="16" height="12" rx="2" fill="#f3e3da" stroke="#b5502a" stroke-width="1"/>
+    <text x="520" y="496" fill="#4a4640" font-size="12">この図の要点</text>
+  </svg>
+</body>
+</html>

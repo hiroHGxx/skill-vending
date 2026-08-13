@@ -73,6 +73,17 @@
   th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); }
   th { background: var(--accent-soft); font-size: 14px; }
   tr:last-child td { border-bottom: none; }
+  figure { margin: 16px 0; }
+  figure img {
+    width: 100%; height: auto; display: block;
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  }
+  figcaption { color: var(--muted); font-size: 13.5px; margin-top: 8px; text-align: center; }
+  .news {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 20px; margin: 16px 0; font-size: 15px;
+  }
+  .news .date { color: var(--accent); font-weight: bold; margin-right: 8px; }
   .disclaimer {
     background: var(--card); border: 1px solid var(--border);
     border-left: 4px solid var(--accent);
@@ -108,6 +119,15 @@
 </section>
 
 <section>
+  <h2>しくみ</h2>
+  <p>自販機（サーバー）は倉庫（GitHub）を<strong>読むだけ</strong>で、あなたのパソコンに書き込む機能を持ちません。スキルの保存は、あなたの側の Claude が<strong>中身を全文見せて、承認を得てから</strong>書き写します。保存されたものが配布元と同一かどうかは、あとから <code>diff</code> で照合できます。</p>
+  <figure>
+    <img src="diagram-flow.png" alt="skill-vending のモノの流れ図。配る人がGitHubの倉庫にスキルを補充し、読み取り専用の自販機（サーバー）がそれを読む。使う人のパソコンの中では、Claudeが会話でスキルを探し、全文を表示し、人の承認を得てから ~/.claude/skills/ に書き写す。">
+    <figcaption>自販機は「読むだけ」。書き込むのは使う人側の Claude — それも人の承認つきで。</figcaption>
+  </figure>
+</section>
+
+<section>
   <h2>導入手順</h2>
   <p>Node.js 18 以上と Claude Code が必要です。以下を実行するだけです：</p>
   <pre><code>claude mcp add skill-vending -- npx -y github:hiroHGxx/skill-vending</code></pre>
@@ -120,6 +140,16 @@
     }
   }
 }</code></pre>
+</section>
+
+<section>
+  <h2>更新情報</h2>
+  <div class="news">
+    <p><span class="date">2026-08-13</span>サーバー v0.2.0 — <code>whats_new</code> ツールを追加しました。Claude に「このスキル配布所、最近なにか更新あった？」と聞くと、更新履歴が返ってきます。</p>
+  </div>
+  <p><strong>すでに導入済みの方へ</strong>：スキルの追加・改版は何もしなくても自動で最新になりますが、サーバー本体の更新（新ツールなど）は npx のキャッシュに残った旧バージョンが使われ続けます。以下を一度実行してから Claude Code を再起動すると、最新のサーバーが入ります（他のツールのキャッシュには影響しません）：</p>
+  <pre><code>find ~/.npm/_npx -maxdepth 3 -type d -name skill-vending | sed 's|/node_modules/skill-vending||' | xargs rm -rf</code></pre>
+  <p>これから導入する方は、そのまま上の導入手順だけで最新版が入ります。全文の更新履歴はリポジトリの <a href="https://github.com/hiroHGxx/skill-vending/blob/main/CHANGELOG.md">CHANGELOG.md</a> にあります。</p>
 </section>
 
 <section>

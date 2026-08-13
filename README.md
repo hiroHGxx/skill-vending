@@ -56,6 +56,23 @@ claude mcp add skill-vending -- npx -y github:hiroHGxx/skill-vending
 
 > 初回起動時は git clone とビルドが走るため、少し時間がかかります。
 
+## 更新の反映（既存利用者向け）
+
+このサーバーは2種類の更新があり、届き方が異なります：
+
+- **スキルの追加・改版**（catalog.json / skills/）… サーバーが常に GitHub の main を読むため、**何もしなくても自動で最新**になります
+- **MCP サーバー本体の更新**（新ツール追加など）… `npx github:` はビルド済みパッケージを `~/.npm/_npx` にキャッシュするため、**自動では反映されません**
+
+サーバー本体を最新にするには、skill-vending のキャッシュだけを削除してから Claude Code を再起動してください：
+
+```bash
+find ~/.npm/_npx -maxdepth 3 -type d -name skill-vending | sed 's|/node_modules/skill-vending||' | xargs rm -rf
+```
+
+次回のセッション開始時に最新版が自動で再インストールされます。他のツールの npx キャッシュには影響しません。
+
+> 現在のサーバー本体の最新は **v0.2.0**（2026-08-13、`whats_new` ツール追加）。更新履歴は [CHANGELOG.md](./CHANGELOG.md) を参照してください。v0.2.0 以降なら、Claude に「このスキル配布所、最近なにか更新あった？」と聞くだけで確認できます。
+
 ## 提供ツール（4つのみ）
 
 | ツール | 引数 | 内容 |
