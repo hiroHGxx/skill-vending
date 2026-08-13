@@ -147,7 +147,7 @@
   <div class="news">
     <p><span class="date">2026-08-13</span>サーバー v0.2.0 — <code>whats_new</code> ツールを追加しました。Claude に「このスキル配布所、最近なにか更新あった？」と聞くと、更新履歴が返ってきます。</p>
   </div>
-  <p><strong>すでに導入済みの方へ</strong>：スキルの追加・改版は何もしなくても自動で最新になりますが、サーバー本体の更新（新ツールなど）は npx のキャッシュに残った旧バージョンが使われ続けます。以下を一度実行してから Claude Code を再起動すると、最新のサーバーが入ります（他のツールのキャッシュには影響しません）：</p>
+  <p><strong>すでに導入済みの方へ</strong>：スキルの追加・改版は何もしなくても自動で最新になります。サーバー本体の更新（新ツールなど）も、<strong>通常は Claude Code を再起動するだけで反映されます</strong>（セッション開始時に npx が最新を取り直します）。もし反映されない場合だけ、以下を一度実行してから再起動してください（他のツールのキャッシュには影響しません）：</p>
   <pre><code>find ~/.npm/_npx -maxdepth 3 -type d -name skill-vending | sed 's|/node_modules/skill-vending||' | xargs rm -rf</code></pre>
   <p>これから導入する方は、そのまま上の導入手順だけで最新版が入ります。全文の更新履歴はリポジトリの <a href="https://github.com/hiroHGxx/skill-vending/blob/main/CHANGELOG.md">CHANGELOG.md</a> にあります。</p>
 </section>
