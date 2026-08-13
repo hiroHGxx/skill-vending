@@ -1,6 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { getCatalog, getSkillFiles } from "./catalog.js";
+import { getCatalog, getChangelog, getSkillFiles } from "./catalog.js";
 import { searchSkills } from "./search.js";
 import { SERVER_NAME, SERVER_VERSION } from "./config.js";
 
@@ -107,6 +107,22 @@ ${fileList}
 
 ${fileSections}`;
 
+      return { content: [{ type: "text", text }] };
+    }
+  );
+
+  server.registerTool(
+    "whats_new",
+    {
+      description:
+        "スキル配布所の更新履歴（CHANGELOG）を返します。新しいスキルの追加や既存スキルの改版を確認できます。気になる更新があれば get_skill で内容を取得してください。",
+      inputSchema: {},
+    },
+    async () => {
+      const changelog = await getChangelog();
+      const text =
+        changelog.trimEnd() +
+        `\n\n各スキルの現在の一覧は list_skills、内容の取得は get_skill を利用してください。`;
       return { content: [{ type: "text", text }] };
     }
   );

@@ -15,7 +15,7 @@ export const BRANCH = process.env.SKILL_VENDING_BRANCH ?? "main";
 export const LOCAL_ROOT = process.env.SKILL_VENDING_LOCAL_ROOT;
 
 export const SERVER_NAME = "skill-vending";
-export const SERVER_VERSION = "0.1.0";
+export const SERVER_VERSION = "0.2.0";
 
 /** catalog.json のメモリキャッシュ有効期間（ミリ秒） */
 export const CATALOG_CACHE_TTL_MS = 5 * 60 * 1000;

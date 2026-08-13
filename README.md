@@ -56,13 +56,14 @@ claude mcp add skill-vending -- npx -y github:hiroHGxx/skill-vending
 
 > 初回起動時は git clone とビルドが走るため、少し時間がかかります。
 
-## 提供ツール（3つのみ）
+## 提供ツール（4つのみ）
 
 | ツール | 引数 | 内容 |
 |--------|------|------|
 | `list_skills` | なし | catalog.json の内容（name / description / version / タグ） |
 | `search_skills` | `query` | name・description・タグへの部分一致検索（簡易スコアリング） |
 | `get_skill` | `name` | スキルの全ファイル内容＋インストール手順テキスト |
+| `whats_new` | なし | 更新履歴（CHANGELOG.md）。新スキルの追加・改版を確認できます |
 
 `get_skill` はファイル内容を**返すだけ**です。`~/.claude/skills/<name>/` への保存は、クライアント側の Claude がユーザーの承認フローのもとで行います。
 

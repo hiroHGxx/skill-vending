@@ -42,6 +42,11 @@ async function fetchText(repoPath: string): Promise<string> {
 
 let cache: { catalog: Catalog; fetchedAt: number } | undefined;
 
+/** リポジトリの CHANGELOG.md を取得する（キャッシュなし・常に最新） */
+export async function getChangelog(): Promise<string> {
+  return fetchText("CHANGELOG.md");
+}
+
 export async function getCatalog(): Promise<Catalog> {
   if (cache && Date.now() - cache.fetchedAt < CATALOG_CACHE_TTL_MS) {
     return cache.catalog;

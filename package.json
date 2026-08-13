@@ -1,6 +1,6 @@
 {
   "name": "skill-vending",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Agent Skills を配布する読み取り専用 MCP サーバー（個人実験プロジェクト）",
   "type": "module",
   "bin": {
